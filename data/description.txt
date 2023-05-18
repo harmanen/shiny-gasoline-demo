@@ -1,0 +1,9 @@
+Date: Date of filling (Finnish time)
+Time: Time of filling (Finnish time)
+PricePerLitre: Price per litre in EUR
+Volume: Total amount filled in litres
+TotalCost: Total cost of the filling in EUR
+VAT: Value-Added Tax percent
+Provider: Service provider
+City: Self-explanatory
+Site: More precise description of the location (Express means self-service station only)
