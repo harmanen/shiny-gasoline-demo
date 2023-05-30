@@ -34,3 +34,4 @@ Date,Time,PricePerLitre,Volume,TotalCost,VAT,Provider,City,Site
 2023-04-14,16:58,2.078,24.06,50.00,24.00,Neste,Kuopio,Puijonlaakso
 2023-04-16,16:41,2.147,23.29,50.00,24.00,ABC,Juva,Juva
 2023-04-27,18:05,2.154,29.86,64.32,24.00,Neste,Kuopio,Puijonlaakso
+2023-05-29,16:59,1.993,34.66,69.08,24.00,Neste,Kuopio,ExpressKolmisoppi
