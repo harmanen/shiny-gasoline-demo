@@ -1,7 +1,15 @@
 library(shiny)
 library(plotly)
+library(dplyr)
+library(lubridate)
 
-data <- read.csv("data/dataset.csv")
+# Constants
+LABEL_LOCALE <- "en_UK"
+
+# Read data, add day and month columns
+data <- read.csv("data/dataset.csv") %>%
+  mutate(Day = wday(Date, label = TRUE, locale = LABEL_LOCALE)) %>% 
+  mutate(Month = month(Date, label = TRUE, locale = LABEL_LOCALE))
 
 ui <- fluidPage(
   titlePanel("Gasoline visualizer 9000"),
