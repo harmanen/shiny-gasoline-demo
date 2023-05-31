@@ -19,11 +19,12 @@ data <- read.csv("data/dataset.csv") %>%
 
 ui <- fluidPage(
   titlePanel("Gasoline visualizer 9000"),
-  plotlyOutput("plot")
+  plotlyOutput("scatterPlot"),
+  plotlyOutput("barPlot")
 )
 
 server <- function(input, output) {
-  output$plot <- renderPlotly({
+  output$scatterPlot <- renderPlotly({
     plot_ly(data,
       type = "scatter",
       mode = "lines"
@@ -40,6 +41,26 @@ server <- function(input, output) {
         color = ~City,
         marker = list(size = 10)
       )
+  })
+
+  output$barPlot <- renderPlotly({
+    plot_ly(
+      data %>%
+        group_by(Day) %>%
+        summarise(
+          TotalCost = sum(TotalCost),
+          Volume = sum(Volume)
+        ),
+      x = ~Day,
+      y = ~TotalCost,
+      type = "bar",
+      name = "Cost (€)"
+    ) %>%
+      add_trace(
+        y = ~Volume,
+        name = "Volume (l)"
+      ) %>%
+      layout(yaxis = list(title = ""))
   })
 }
 
