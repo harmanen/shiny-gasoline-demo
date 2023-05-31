@@ -48,16 +48,20 @@ server <- function(input, output) {
       data %>%
         group_by(Day) %>%
         summarise(
+          n = n(),
           TotalCost = sum(TotalCost),
           Volume = sum(Volume)
         ),
       x = ~Day,
       y = ~TotalCost,
+      text = ~n,
+      textposition = "outside",
       type = "bar",
       name = "Cost (€)"
     ) %>%
       add_trace(
         y = ~Volume,
+        text = "", # Needed, otherwise ~n is printed here as well
         name = "Volume (l)"
       ) %>%
       layout(yaxis = list(title = ""))
