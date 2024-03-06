@@ -44,3 +44,14 @@ Date,Time,PricePerLitre,Volume,TotalCost,VAT,Provider,City,Site
 2023-08-13,20:09,2.148,29.95,64.33,24.00,ABC,Jyväskylä,Vaajakoski
 2023-09-05,16:50,2.052,28.23,57.93,24.00,Neste,Kuopio,ExpressKolmisoppi
 2023-09-27,16:40,2.199,37.92,83.39,24.00,Neste,Kuopio,ExpressKolmisoppi
+2023-10-02,17:16,2.037,32.24,65.67,24.00,ABC,Tampere,Lahdesjärvi
+2023-10-09,16:24,2.039,24.04,49.02,24.00,Neste,Kuopio,ExpressKolmisoppi
+2023-10-23,17:02,2.009,11.57,23.24,24.00,Neste,Kuopio,ExpressPäiväranta
+2023-11-07,19:57,1.936,19.10,36.98,24.00,ABC,Orivesi,Oritupa
+2023-11-14,17:04,1.945,20.26,39.41,24.00,ABC,Orivesi,Oritupa
+2023-11-24,20:35,1.980,26.06,51.60,24.00,ABC,Orivesi,Oritupa
+2023-12-09,13:59,1.953,32.67,63.80,24.00,ABC,Kotka,Amiraali
+2023-12-23,15:18,1.964,19.57,38.44,24.00,Neste,Turku,Kaskentie
+2024-01-17,13:12,1.849,26.41,48.83,24.00,ABC,Orivesi,Oritupa
+2024-01-20,15:32,1.769,18.01,31.86,24.00,Neste,Kuopio,ExpressPäiväranta
+2024-03-01,12:18,1.944,24.66,47.94,24.00,Neste,Kuopio,ExpressKolmisoppi
