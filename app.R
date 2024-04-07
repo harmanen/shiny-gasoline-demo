@@ -27,6 +27,20 @@ data <- read.csv("data/dataset.csv") %>%
                        label = TRUE,
                        locale = LABEL_LOCALE))
 
+# Sanity check
+for (row in 1:nrow(data)) {
+  roundedProduct <-
+    round(data[row, "PricePerLitre"] * data[row, "Volume"], 2)
+  
+  # Check that PricePerLitre * Volume equals TotalCost (within tolerance)
+  isAlmostEqual <-
+    all.equal(roundedProduct, data[row, "TotalCost"], tolerance = 1e-3)
+  
+  if (class(isAlmostEqual) == "character") {
+    print(paste("Check data at line", row, isAlmostEqual))
+  }
+}
+
 # App
 ui <- fluidPage(
   # Add styles
@@ -35,13 +49,13 @@ ui <- fluidPage(
               type = "text/css",
               href = "styles.css")
   ),
-
+  
   append_css("title-container",
              append_css(
                "fit-content",
                titlePanel("Gasoline visualizer 9000")
              )),
-
+  
   fluidRow(column(
     12, append_css("shadow-box", plotlyOutput("scatterPlot"))
   )),
@@ -74,7 +88,7 @@ server <- function(input, output) {
       layout(title = "Time series of the price per litre",
              yaxis = list(title = "Price per litre (€)"))
   })
-
+  
   output$priceVolumePlot <- renderPlotly({
     plot_ly(data, type = "scatter") %>%
       add_markers(
@@ -89,7 +103,7 @@ server <- function(input, output) {
         yaxis = list(title = "Refuel volume (l)")
       )
   })
-
+  
   output$boxPlot <- renderPlotly({
     plot_ly(
       data,
@@ -124,7 +138,7 @@ server <- function(input, output) {
         )
       )
   })
-
+  
   output$barPlot <- renderPlotly({
     plot_ly(
       data %>%
