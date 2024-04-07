@@ -2,9 +2,42 @@ library(shiny)
 library(plotly)
 library(dplyr)
 library(lubridate)
+library(RColorBrewer)
 
 ### Constants
 LABEL_LOCALE <- "en_UK"
+
+colorPalette <-
+  c(
+    "#8DD3C7",
+    # "#FFFFB3",
+    # "#BEBADA",
+    "#FB8072",
+    "#80B1D3",
+    "#FDB462",
+    "#B3DE69",
+    "#FCCDE5",
+    "#D9D9D9",
+    "#BC80BD",
+    # "#CCEBC5",
+    "#FFED6F"
+  ) # Set3
+
+colorPalette <-
+  setNames(
+    colorPalette,
+    c(
+      "Helsinki",
+      "Lohja",
+      "Turku",
+      "Kuopio",
+      "Juva",
+      "Kotka",
+      "Jyväskylä",
+      "Tampere",
+      "Orivesi"
+    )
+  )
 
 # Define manually so the scales have same horizontal lines
 ymin1BoxPlot <- 1
@@ -72,7 +105,8 @@ server <- function(input, output) {
   output$scatterPlot <- renderPlotly({
     plot_ly(data,
             type = "scatter",
-            mode = "lines") %>%
+            mode = "lines",
+            colors = colorPalette) %>%
       add_trace(
         x = ~ Date,
         y = ~ PricePerLitre,
@@ -90,7 +124,7 @@ server <- function(input, output) {
   })
   
   output$priceVolumePlot <- renderPlotly({
-    plot_ly(data, type = "scatter") %>%
+    plot_ly(data, type = "scatter", colors = colorPalette) %>%
       add_markers(
         x = ~ PricePerLitre,
         y = ~ Volume,
