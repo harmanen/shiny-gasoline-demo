@@ -6,12 +6,17 @@ library(lubridate)
 # Constants
 LABEL_LOCALE <- "en_UK"
 
-ymin1BoxPlot <- 1 #0
-ymax1BoxPlot <- 3 #4
-ymin2BoxPlot <- 0 #0
-ymax2BoxPlot <- 40 #40
+# Define manually so the scales have same horizontal lines
+ymin1BoxPlot <- 1
+ymax1BoxPlot <- 3
+ymin2BoxPlot <- 0
+ymax2BoxPlot <- 40
 
-###
+# Helpers
+# Wrap with div and add class name
+append_css <- function(styles = "", ...) {
+  tags$div(class = styles, ...)
+}
 
 # Read data, add day and month columns
 data <- read.csv("data/dataset.csv") %>%
@@ -22,12 +27,26 @@ data <- read.csv("data/dataset.csv") %>%
                        label = TRUE,
                        locale = LABEL_LOCALE))
 
+# App
 ui <- fluidPage(
-  titlePanel("Gasoline visualizer 9000"),
+  # Add styles
+  tags$head(
+    tags$link(rel = "stylesheet",
+              type = "text/css",
+              href = "styles.css")
+  ),
   
-  fluidRow(column(12, plotlyOutput("scatterPlot"))),
-  fluidRow(column(6, plotlyOutput("boxPlot")),
-           column(6, plotlyOutput("barPlot")))
+  append_css("shadow-box", titlePanel("Gasoline visualizer 9000")),
+  
+  fluidRow(column(
+    12, append_css("shadow-box", plotlyOutput("scatterPlot"))
+  )),
+  fluidRow(column(
+    4, append_css("shadow-box", plotlyOutput("boxPlot"))
+  ),
+  column(
+    8, append_css("shadow-box", plotlyOutput("barPlot"))
+  ))
 )
 
 server <- function(input, output) {
