@@ -6,6 +6,13 @@ library(lubridate)
 # Constants
 LABEL_LOCALE <- "en_UK"
 
+ymin1BoxPlot <- 1 #0
+ymax1BoxPlot <- 3 #4
+ymin2BoxPlot <- 0 #0
+ymax2BoxPlot <- 40 #40
+
+###
+
 # Read data, add day and month columns
 data <- read.csv("data/dataset.csv") %>%
   mutate(Day = wday(Date,
@@ -19,8 +26,11 @@ data <- read.csv("data/dataset.csv") %>%
 
 ui <- fluidPage(
   titlePanel("Gasoline visualizer 9000"),
-  plotlyOutput("scatterPlot"),
-  plotlyOutput("barPlot")
+  
+  fluidRow(column(12,plotlyOutput("scatterPlot"))),
+  fluidRow(column(6,plotlyOutput("boxPlot")),
+           column(6,plotlyOutput("barPlot"))
+           )
 )
 
 server <- function(input, output) {
@@ -40,7 +50,37 @@ server <- function(input, output) {
         y = ~PricePerLitre,
         color = ~City,
         marker = list(size = 10)
-      )
+      ) %>% 
+      layout(title = "Time series")
+  })
+  
+  output$boxPlot <- renderPlotly({
+    plot_ly(data,
+            y = ~PricePerLitre,
+            boxpoints = "all",
+            jitter = 0.1,
+            name = "Price per litre (€)",
+            notched = TRUE,
+            type = "box"
+            ) %>%
+      add_boxplot(y = ~Volume,
+                  yaxis = "y2",
+                  boxpoints = "all",
+                  jitter = 0.1,
+                  name = "Volume (l)",
+                  notched = TRUE
+                  ) %>%
+      layout(title = "Box plots",
+             showlegend = FALSE,
+             yaxis = list(title = "",
+                          range = list(ymin1BoxPlot, ymax1BoxPlot)
+                          ), 
+             yaxis2 = list(title = "",
+                           range = list(ymin2BoxPlot, ymax2BoxPlot), 
+                           side = "right", 
+                           overlaying = "y"
+                           )
+      ) 
   })
 
   output$barPlot <- renderPlotly({
@@ -64,7 +104,9 @@ server <- function(input, output) {
         text = "", # Needed, otherwise ~n is printed here as well
         name = "Volume (l)"
       ) %>%
-      layout(yaxis = list(title = ""))
+      layout(title = "Distribution of refills",
+             yaxis = list(title = "")
+             )
   })
 }
 
