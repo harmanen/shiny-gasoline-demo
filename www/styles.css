@@ -9,6 +9,17 @@ body {
 
 h2 {
   text-align: center;
+  margin: 2rem 0;
+  color: black;
+}
+
+.title-container {
+  display: flex;
+  justify-content: center;
+}
+
+.fit-content {
+  width: fit-content;
 }
 
 .shadow-box {

@@ -35,9 +35,15 @@ ui <- fluidPage(
               type = "text/css",
               href = "styles.css")
   ),
-  
-  append_css("shadow-box", titlePanel("Gasoline visualizer 9000")),
-  
+
+  append_css(
+    "title-container",
+    append_css(
+      "fit-content",
+      titlePanel("Gasoline visualizer 9000")
+    )
+  ),
+
   fluidRow(column(
     12, append_css("shadow-box", plotlyOutput("scatterPlot"))
   )),
@@ -66,15 +72,15 @@ server <- function(input, output) {
         color = ~ City,
         marker = list(size = 10)
       ) %>%
-      layout(title = "Time series")
+      layout(title = "Time series of the price per litre")
   })
-  
+
   output$boxPlot <- renderPlotly({
     plot_ly(
       data,
       y = ~ PricePerLitre,
-      boxpoints = "all",
-      jitter = 0.1,
+      boxpoints = "suspectedoutliers",
+      jitter = 0.2,
       name = "Price per litre (€)",
       notched = TRUE,
       type = "box"
@@ -82,8 +88,8 @@ server <- function(input, output) {
       add_boxplot(
         y = ~ Volume,
         yaxis = "y2",
-        boxpoints = "all",
-        jitter = 0.1,
+        boxpoints = "suspectedoutliers",
+        jitter = 0.2,
         name = "Volume (l)",
         notched = TRUE
       ) %>%
@@ -98,11 +104,12 @@ server <- function(input, output) {
           title = "",
           range = list(ymin2BoxPlot, ymax2BoxPlot),
           side = "right",
-          overlaying = "y"
+          overlaying = "y",
+          automargin = TRUE
         )
       )
   })
-  
+
   output$barPlot <- renderPlotly({
     plot_ly(
       data %>%
@@ -123,7 +130,7 @@ server <- function(input, output) {
                 text = "",
                 # Needed, otherwise ~n is printed here as well
                 name = "Volume (l)") %>%
-      layout(title = "Distribution of refills",
+      layout(title = "Distribution of refills (n over blue bar)",
              yaxis = list(title = ""))
   })
 }
