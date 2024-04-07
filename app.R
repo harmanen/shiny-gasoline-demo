@@ -36,23 +36,22 @@ ui <- fluidPage(
               href = "styles.css")
   ),
 
-  append_css(
-    "title-container",
-    append_css(
-      "fit-content",
-      titlePanel("Gasoline visualizer 9000")
-    )
-  ),
+  append_css("title-container",
+             append_css(
+               "fit-content",
+               titlePanel("Gasoline visualizer 9000")
+             )),
 
   fluidRow(column(
     12, append_css("shadow-box", plotlyOutput("scatterPlot"))
   )),
-  fluidRow(column(
-    4, append_css("shadow-box", plotlyOutput("boxPlot"))
-  ),
-  column(
-    8, append_css("shadow-box", plotlyOutput("barPlot"))
-  ))
+  fluidRow(
+    column(4, append_css(
+      "shadow-box", plotlyOutput("priceVolumePlot")
+    )),
+    column(4, append_css("shadow-box", plotlyOutput("boxPlot"))),
+    column(4, append_css("shadow-box", plotlyOutput("barPlot")))
+  )
 )
 
 server <- function(input, output) {
@@ -72,7 +71,23 @@ server <- function(input, output) {
         color = ~ City,
         marker = list(size = 10)
       ) %>%
-      layout(title = "Time series of the price per litre")
+      layout(title = "Time series of the price per litre",
+             yaxis = list(title = "Price per litre (€)"))
+  })
+
+  output$priceVolumePlot <- renderPlotly({
+    plot_ly(data, type = "scatter") %>%
+      add_markers(
+        x = ~ PricePerLitre,
+        y = ~ Volume,
+        color = ~ City,
+        marker = list(size = 10)
+      ) %>%
+      layout(
+        title = "Refuel volume as a function of price per litre",
+        xaxis = list(title = "Price per litre (€)"),
+        yaxis = list(title = "Refuel volume (l)")
+      )
   })
 
   output$boxPlot <- renderPlotly({
@@ -90,7 +105,7 @@ server <- function(input, output) {
         yaxis = "y2",
         boxpoints = "suspectedoutliers",
         jitter = 0.2,
-        name = "Volume (l)",
+        name = "Refuel volume (l)",
         notched = TRUE
       ) %>%
       layout(
