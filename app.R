@@ -3,7 +3,7 @@ library(plotly)
 library(dplyr)
 library(lubridate)
 
-# Constants
+### Constants
 LABEL_LOCALE <- "en_UK"
 
 # Define manually so the scales have same horizontal lines
@@ -12,13 +12,13 @@ ymax1BoxPlot <- 3
 ymin2BoxPlot <- 0
 ymax2BoxPlot <- 40
 
-# Helpers
+### Helpers
 # Wrap with div and add class name
 append_css <- function(styles = "", ...) {
   tags$div(class = styles, ...)
 }
 
-# Read data, add day and month columns
+### Read data, add day and month columns
 data <- read.csv("data/dataset.csv") %>%
   mutate(Day = wday(Date,
                     label = TRUE,
@@ -41,7 +41,7 @@ for (row in 1:nrow(data)) {
   }
 }
 
-# App
+### App
 ui <- fluidPage(
   # Add styles
   tags$head(
