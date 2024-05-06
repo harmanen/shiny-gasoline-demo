@@ -59,3 +59,6 @@ Date,Time,PricePerLitre,Volume,TotalCost,VAT,Provider,City,Site
 2024-03-27,12:46,2.099,9.43,19.79,24.00,ABC,Juva,Juva
 2024-03-27,18:27,2.107,16.33,34.41,24.00,Neste,Helsinki,ExpressAlaTikkurila
 2024-04-02,22:09,2.132,19.61,41.81,24.00,ABC,Juva,Juva
+2024-04-24,10:03,2.022,17.00,34.37,24.00,Neste,Kuopio,Puijonlaakso
+2024-04-27,18:15,1.974,24.04,47.45,24.00,Neste,Turku,Kaskentie
+2024-04-30,12:37,2.054,23.23,47.71,24.00,Neste,Kuopio,ExpressKolmisoppi
