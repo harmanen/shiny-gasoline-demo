@@ -1,8 +1,8 @@
 # Data visualization demo using R Shiny
 
-Work in progress but feel free to take a look...
+App now available in [shinyapps.io](https://harmanen.shinyapps.io/shiny-gasoline-demo/)!
 
-## Usage
+## Development environment
 
 1. Install [R](https://cran.rstudio.com/)
 2. Install [RStudio](https://posit.co/download/rstudio-desktop/)
